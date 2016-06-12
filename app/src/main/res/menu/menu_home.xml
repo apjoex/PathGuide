@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/action_faq"
+        android:icon="@drawable/ic_help"
+        android:title="FAQs"
+        app:showAsAction="always"
+        android:orderInCategory="1"/>
+
+    <item android:id="@+id/action_about"
+        android:title="About"
+        app:showAsAction="never"
+        android:orderInCategory="2"/>
+
+    <item android:id="@+id/action_credit"
+        android:title="Credits"
+        app:showAsAction="never"
+        android:orderInCategory="3"/>
+
+    <item android:id="@+id/action_feedback"
+        android:title="Send feedback"
+        app:showAsAction="never"
+        android:orderInCategory="4"/>
+
+    <item android:id="@+id/action_add"
+        android:title="Add content"
+        app:showAsAction="never"
+        android:orderInCategory="5"/>
+</menu>

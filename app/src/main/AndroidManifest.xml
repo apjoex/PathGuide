@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.pathguide">
+
+    <application
+        android:name="controllers.AppController"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".SplashScreen"
+            android:screenOrientation="portrait"
+            android:theme="@style/FullScreenTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Home"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FAQs"
+            android:label="FAQs"
+            android:parentActivityName=".Home"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ClassroomActivity"
+            android:label="Classrooms"
+            android:parentActivityName=".Home"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".OfficeActivity"
+            android:label="Offices"
+            android:parentActivityName=".Home"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LabActivity"
+            android:label="Laboratories"
+            android:parentActivityName=".Home"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RestroomActivity"
+            android:label="Restrooms"
+            android:parentActivityName=".Home"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Directions"
+            android:label=""
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Add"
+            android:label="Add content"
+            android:screenOrientation="portrait" />
+
+        <service
+            android:name="services.FirebaseMessageService">
+             <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+             </intent-filter>
+        </service>
+    </application>
+
+</manifest>
