@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="8dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.pathguide.Directions"
     android:background="#fff">
 
@@ -16,11 +16,57 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <android.support.design.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/pic_body"
+                android:layout_marginTop="2dp"
+                android:paddingBottom="10dp">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:id="@+id/pic" />
+
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/loading"
+                    android:layout_centerInParent="true" />
+
+                </RelativeLayout>
+
+                <android.support.design.widget.FloatingActionButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|right"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="170dp"
+                    android:padding="4dp"
+                    android:src="@drawable/ic_zoom_out"
+                    app:layout_anchor="@id/pic"
+                    app:elevation="0dp"
+                    android:clickable="true"
+                    app:rippleColor="@color/colorPrimaryDark"
+                    app:fabSize="normal"
+                    app:layout_anchorGravity="bottom|right"
+                    android:id="@+id/expand" />
+
+
+            </android.support.design.widget.CoordinatorLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_margin="8dp">
+                android:paddingTop="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="-20dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -56,8 +102,10 @@
             </LinearLayout>
 
             <View
-                android:layout_width="330dp"
+                android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginLeft="50dp"
+                android:layout_gravity="right"
                 android:background="#e6e6e6"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="8dp" />
@@ -102,8 +150,10 @@
             </LinearLayout>
 
             <View
-                android:layout_width="330dp"
+                android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginLeft="50dp"
+                android:layout_gravity="right"
                 android:background="#e6e6e6"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="8dp" />

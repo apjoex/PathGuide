@@ -4,10 +4,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 import models.Classroom;
 import models.Lab;
@@ -24,6 +37,11 @@ public class Directions extends AppCompatActivity {
     Lab lab;
     String starting_point;
     TextView destination_text, start_text, direction_text;
+    ImageView pic;
+    ProgressBar loading;
+    CoordinatorLayout pic_body;
+    FloatingActionButton expand;
+    String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +58,36 @@ public class Directions extends AppCompatActivity {
         destination_text = (TextView)findViewById(R.id.destination_text);
         start_text = (TextView)findViewById(R.id.start_text);
         direction_text = (TextView)findViewById(R.id.direction_text);
+        pic_body = (CoordinatorLayout)findViewById(R.id.pic_body);
+        pic = (ImageView)findViewById(R.id.pic);
+        loading = (ProgressBar)findViewById(R.id.loading);
+        expand = (FloatingActionButton)findViewById(R.id.expand);
+
+        if (expand != null) {
+            expand.hide();
+        }
+        pic_body.setVisibility(View.VISIBLE);
 
         populateData();
 
+        clickEvents();
+
+    }
+
+    private void clickEvents() {
+
+        expand.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GlideBitmapDrawable image=(GlideBitmapDrawable)pic.getDrawable();
+//                pic.buildDrawingCache();
+//                Bitmap image= pic.getDrawingCache();
+//                Toast.makeText(Directions.this, ""+image.toString(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, ExpandActivity.class);
+                intent.putExtra("imageUrl", url);
+                startActivity(intent);
+            }
+        });
     }
 
     private void populateData() {
@@ -54,6 +99,38 @@ public class Directions extends AppCompatActivity {
             }else{
                 direction_text.setText(classroom.getCar_park());
             }
+            url = classroom.getUrl();
+            Glide.with(context)
+                    .load(classroom.getUrl())
+                    .error(R.drawable.image)
+                    .fitCenter()
+                    .listener(new RequestListener<String, GlideDrawable>() {
+                        @Override
+                        public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                            loading.setVisibility(View.GONE);
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                            pic_body.setVisibility(View.VISIBLE);
+                            loading.setVisibility(View.GONE);
+                            new CountDownTimer(1000,1000) {
+                                @Override
+                                public void onTick(long l) {
+
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    expand.show();
+                                }
+                            }.start();
+                            return false;
+                        }
+                    })
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(pic);
         }
 
         if(restroom != null){
@@ -68,6 +145,37 @@ public class Directions extends AppCompatActivity {
             }else{
                 direction_text.setText(restroom.getCar_park());
             }
+            url = restroom.getUrl();
+            Glide.with(context)
+                    .load(restroom.getUrl())
+                    .error(R.drawable.image)
+                    .listener(new RequestListener<String, GlideDrawable>() {
+                        @Override
+                        public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                            loading.setVisibility(View.GONE);
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                            pic_body.setVisibility(View.VISIBLE);
+                            loading.setVisibility(View.GONE);
+                            new CountDownTimer(1000,1000) {
+                                @Override
+                                public void onTick(long l) {
+
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    expand.show();
+                                }
+                            }.start();
+                            return false;
+                        }
+                    })
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(pic);
         }
 
         if(office != null){
@@ -78,6 +186,37 @@ public class Directions extends AppCompatActivity {
             }else{
                 direction_text.setText(office.getCar_park());
             }
+            url = office.getUrl();
+            Glide.with(context)
+                    .load(office.getUrl())
+                    .error(R.drawable.image)
+                    .listener(new RequestListener<String, GlideDrawable>() {
+                        @Override
+                        public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                            loading.setVisibility(View.GONE);
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                            pic_body.setVisibility(View.VISIBLE);
+                            loading.setVisibility(View.GONE);
+                            new CountDownTimer(1000,1000) {
+                                @Override
+                                public void onTick(long l) {
+
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    expand.show();
+                                }
+                            }.start();
+                            return false;
+                        }
+                    })
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(pic);
         }
 
         if(lab!= null){
@@ -88,8 +227,38 @@ public class Directions extends AppCompatActivity {
             }else{
                 direction_text.setText(lab.getCar_park());
             }
-        }
+            url = lab.getUrl();
+            Glide.with(context)
+                    .load(lab.getUrl())
+                    .error(R.drawable.image)
+                    .listener(new RequestListener<String, GlideDrawable>() {
+                        @Override
+                        public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                            loading.setVisibility(View.GONE);
+                            return false;
+                        }
 
+                        @Override
+                        public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                            pic_body.setVisibility(View.VISIBLE);
+                            loading.setVisibility(View.GONE);
+                            new CountDownTimer(1000,1000) {
+                                @Override
+                                public void onTick(long l) {
+
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    expand.show();
+                                }
+                            }.start();
+                            return false;
+                        }
+                    })
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(pic);
+        }
     }
 
     @Override

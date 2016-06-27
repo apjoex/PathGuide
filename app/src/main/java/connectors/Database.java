@@ -27,10 +27,10 @@ public class Database extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE classrooms (_id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,car_park TEXT,bridge TEXT);");
-        db.execSQL("CREATE TABLE offices (_id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,car_park TEXT,bridge TEXT);");
-        db.execSQL("CREATE TABLE labs (_id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,car_park TEXT,bridge TEXT);");
-        db.execSQL("CREATE TABLE restrooms (_id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,car_park TEXT,bridge TEXT);");
+        db.execSQL("CREATE TABLE classrooms (_id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,car_park TEXT,bridge TEXT,url TEXT);");
+        db.execSQL("CREATE TABLE offices (_id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,car_park TEXT,bridge TEXT,url TEXT);");
+        db.execSQL("CREATE TABLE labs (_id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,car_park TEXT,bridge TEXT,url TEXT);");
+        db.execSQL("CREATE TABLE restrooms (_id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,car_park TEXT,bridge TEXT,url TEXT);");
     }
 
     @Override
@@ -39,7 +39,7 @@ public class Database extends SQLiteOpenHelper {
     }
 
 
-    public void saveClassroom(ArrayList<Classroom> classrooms){
+    public void saveClassroom(ArrayList <Classroom> classrooms){
         for(int g = 0;g< classrooms.size();g++){
             String query = " SELECT * FROM classrooms WHERE name = '"+classrooms.get(g).getName()+"'";
             Cursor cursor = getReadableDatabase().rawQuery(query,null);
@@ -48,6 +48,7 @@ public class Database extends SQLiteOpenHelper {
             cv.put("name", classrooms.get(g).getName());
             cv.put("car_park", classrooms.get(g).getCar_park());
             cv.put("bridge", classrooms.get(g).getBridge());
+            cv.put("url", classrooms.get(g).getUrl());
             if(cursor.getCount() + 0 == 0){
                 getWritableDatabase().insert("classrooms","name", cv);
             }else{
@@ -66,7 +67,8 @@ public class Database extends SQLiteOpenHelper {
             classroom.add(new Classroom(
                     cursor.getString(cursor.getColumnIndex("name")),
                     cursor.getString(cursor.getColumnIndex("car_park")),
-                    cursor.getString(cursor.getColumnIndex("bridge"))
+                    cursor.getString(cursor.getColumnIndex("bridge")),
+                    cursor.getString(cursor.getColumnIndex("url"))
                     ));
         }
         close();
@@ -81,7 +83,8 @@ public class Database extends SQLiteOpenHelper {
             classroom.add(new Classroom(
                     cursor.getString(cursor.getColumnIndex("name")),
                     cursor.getString(cursor.getColumnIndex("car_park")),
-                    cursor.getString(cursor.getColumnIndex("bridge"))
+                    cursor.getString(cursor.getColumnIndex("bridge")),
+                    cursor.getString(cursor.getColumnIndex("url"))
             ));
         }
         close();
@@ -97,6 +100,7 @@ public class Database extends SQLiteOpenHelper {
             cv.put("name", offices.get(g).getName());
             cv.put("car_park", offices.get(g).getCar_park());
             cv.put("bridge", offices.get(g).getBridge());
+            cv.put("url", offices.get(g).getUrl());
             if(cursor.getCount() + 0 == 0){
                 getWritableDatabase().insert("offices","name", cv);
             }else{
@@ -115,8 +119,9 @@ public class Database extends SQLiteOpenHelper {
             office.add(new Office(
                     cursor.getString(cursor.getColumnIndex("name")),
                     cursor.getString(cursor.getColumnIndex("car_park")),
-                    cursor.getString(cursor.getColumnIndex("bridge"))
-                    ));
+                    cursor.getString(cursor.getColumnIndex("bridge")),
+                    cursor.getString(cursor.getColumnIndex("url"))
+            ));
         }
         close();
         return office;
@@ -130,8 +135,9 @@ public class Database extends SQLiteOpenHelper {
             office.add(new Office(
                     cursor.getString(cursor.getColumnIndex("name")),
                     cursor.getString(cursor.getColumnIndex("car_park")),
-                    cursor.getString(cursor.getColumnIndex("bridge"))
-                    ));
+                    cursor.getString(cursor.getColumnIndex("bridge")),
+                    cursor.getString(cursor.getColumnIndex("url"))
+            ));
         }
         close();
         return office;
@@ -146,6 +152,7 @@ public class Database extends SQLiteOpenHelper {
             cv.put("name", labs.get(g).getName());
             cv.put("car_park", labs.get(g).getCar_park());
             cv.put("bridge", labs.get(g).getBridge());
+            cv.put("url", labs.get(g).getUrl());
             if(cursor.getCount() + 0 == 0){
                 getWritableDatabase().insert("labs","name", cv);
             }else{
@@ -164,8 +171,9 @@ public class Database extends SQLiteOpenHelper {
             lab.add(new Lab(
                     cursor.getString(cursor.getColumnIndex("name")),
                     cursor.getString(cursor.getColumnIndex("car_park")),
-                    cursor.getString(cursor.getColumnIndex("bridge"))
-                    ));
+                    cursor.getString(cursor.getColumnIndex("bridge")),
+                    cursor.getString(cursor.getColumnIndex("url"))
+            ));
         }
         close();
         return lab;
@@ -179,8 +187,9 @@ public class Database extends SQLiteOpenHelper {
             lab.add(new Lab(
                     cursor.getString(cursor.getColumnIndex("name")),
                     cursor.getString(cursor.getColumnIndex("car_park")),
-                    cursor.getString(cursor.getColumnIndex("bridge"))
-                    ));
+                    cursor.getString(cursor.getColumnIndex("bridge")),
+                    cursor.getString(cursor.getColumnIndex("url"))
+            ));
         }
         close();
         return lab;
@@ -197,6 +206,7 @@ public class Database extends SQLiteOpenHelper {
             cv.put("name", restrooms.get(g).getName());
             cv.put("car_park", restrooms.get(g).getCar_park());
             cv.put("bridge", restrooms.get(g).getBridge());
+            cv.put("url", restrooms.get(g).getUrl());
             if(cursor.getCount() + 0 == 0){
                 getWritableDatabase().insert("restrooms","name", cv);
             }else{
@@ -217,8 +227,9 @@ public class Database extends SQLiteOpenHelper {
             restroom.add(new Restroom(
                     cursor.getString(cursor.getColumnIndex("name")),
                     cursor.getString(cursor.getColumnIndex("car_park")),
-                    cursor.getString(cursor.getColumnIndex("bridge"))
-                    ));
+                    cursor.getString(cursor.getColumnIndex("bridge")),
+                    cursor.getString(cursor.getColumnIndex("url"))
+            ));
         }
         close();
         return restroom;
@@ -232,7 +243,8 @@ public class Database extends SQLiteOpenHelper {
             restroom.add(new Restroom(
                     cursor.getString(cursor.getColumnIndex("name")),
                     cursor.getString(cursor.getColumnIndex("car_park")),
-                    cursor.getString(cursor.getColumnIndex("bridge"))
+                    cursor.getString(cursor.getColumnIndex("bridge")),
+                    cursor.getString(cursor.getColumnIndex("url"))
             ));
         }
         close();

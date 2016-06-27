@@ -11,15 +11,16 @@ import java.util.Map;
  */
 public class Classroom implements Serializable {
 
-    public String name,car_park,bridge;
+    public String name,car_park,bridge,url;
 
     public Classroom(){}
 
-    public Classroom(String name,String car_park,String bridge){
+    public Classroom(String name,String car_park,String bridge, String url){
 
         this.name = name;
         this.car_park = car_park;
         this.bridge = bridge;
+        this.url = url;
 
     }
 
@@ -36,6 +37,10 @@ public class Classroom implements Serializable {
 
     public String getBridge(){
         return this.bridge;
+    }
+
+    public String getUrl(){
+        return this.url;
     }
 
     @Exclude
@@ -61,6 +66,10 @@ public class Classroom implements Serializable {
 
     public void setBridge(String value){
         this.bridge = value;
+    }
+
+    public void setUrl(String value){
+        this.url = value;
     }
 
 

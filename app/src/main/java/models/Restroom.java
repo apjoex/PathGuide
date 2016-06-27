@@ -7,15 +7,17 @@ import java.io.Serializable;
  */
 public class Restroom implements Serializable{
 
-    public String name,car_park,bridge;
+    public String name,car_park,bridge,url;
 
     public Restroom(){}
 
-    public Restroom(String name,String car_park,String bridge){
+    public Restroom(String name,String car_park,String bridge, String url){
 
         this.name = name;
         this.car_park = car_park;
         this.bridge = bridge;
+        this.url = url;
+
 
     }
 
@@ -34,6 +36,10 @@ public class Restroom implements Serializable{
         return this.bridge;
     }
 
+    public String getUrl(){
+        return this.url;
+    }
+
     //// setters ////
 
     public void setName(String value){
@@ -47,6 +53,11 @@ public class Restroom implements Serializable{
     public void setBridge(String value){
         this.bridge = value;
     }
+
+    public void setUrl(String value){
+        this.url = value;
+    }
+
 
 
 

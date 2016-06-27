@@ -160,6 +160,11 @@ public class Home extends AppCompatActivity {
             startActivity(faqIntent);
         }
 
+        if(id == R.id.action_credit){
+            Intent faqIntent = new Intent(context, Shaky.class);
+            startActivity(faqIntent);
+        }
+
         if(id == R.id.action_feedback){
             Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "apjoex@gmail.com", null));
             emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Feedback on PathGuide");

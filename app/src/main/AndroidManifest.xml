@@ -2,6 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.pathguide">
 
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera2" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:name="controllers.AppController"
         android:allowBackup="true"
@@ -56,12 +63,20 @@
             android:label="Add content"
             android:screenOrientation="portrait" />
 
-        <service
-            android:name="services.FirebaseMessageService">
-             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
-             </intent-filter>
+        <service android:name="services.FirebaseMessageService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
         </service>
+
+        <activity
+            android:name=".Shaky"
+            android:label="Shaky Shaky"
+            android:screenOrientation="portrait" />
+
+        <activity android:name=".ExpandActivity"
+            android:theme="@style/FullScreenTheme"
+            android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>
