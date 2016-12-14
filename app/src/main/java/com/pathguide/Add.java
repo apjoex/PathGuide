@@ -7,14 +7,16 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -84,8 +86,8 @@ public class Add extends AppCompatActivity {
         uploadBtn = (Button)findViewById(R.id.uploadBtn);
         photo = (ImageView)findViewById(R.id.photo);
         photo.setVisibility(View.GONE);
-        header_text.setTextSize(20);
-        header_text.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/Montserrat.otf"), Typeface.BOLD);
+//        header_text.setTextSize(20);
+//        header_text.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/Montserrat.otf"), Typeface.BOLD);
 
         clickEvents();
     }
@@ -105,6 +107,7 @@ public class Add extends AppCompatActivity {
                 if(passcode.getText().length() < 4){
                     Toast.makeText(context,"Please enter a four digit passcode", Toast.LENGTH_SHORT).show();
                     Utilities.vibratePhone(context, 300);
+                    passcode.setText("");
                 }else{
                     proceedCodeCheck(passcode.getText().toString());
                 }
@@ -209,7 +212,15 @@ public class Add extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (items[which].equals("Take a Photo")) {
-                    TakePhoto();
+                    if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
+                            ContextCompat.checkSelfPermission(context, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(Add.this,
+                                new String[]{android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                10);
+                    }else{
+                        TakePhoto();
+                    }
+
                 } else {
                     SelectPhoto();
                 }
@@ -217,6 +228,21 @@ public class Add extends AppCompatActivity {
         });
         Dialog dialog = builder.create();
         dialog.show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case 10: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    TakePhoto();
+                } else {
+                    Toast.makeText(context,"Please grant permissions to take photos",Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        }
     }
 
     private void TakePhoto(){
@@ -367,6 +393,7 @@ public class Add extends AppCompatActivity {
         }else{
             Toast.makeText(context,"Incorrect passcode", Toast.LENGTH_SHORT).show();
             Utilities.vibratePhone(context, 300);
+            passcode.setText("");
         }
     }
 

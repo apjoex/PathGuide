@@ -161,8 +161,8 @@ public class Home extends AppCompatActivity {
         }
 
         if(id == R.id.action_credit){
-            Intent faqIntent = new Intent(context, Shaky.class);
-            startActivity(faqIntent);
+//            Intent faqIntent = new Intent(context, Shaky.class);
+//            startActivity(faqIntent);
         }
 
         if(id == R.id.action_feedback){
